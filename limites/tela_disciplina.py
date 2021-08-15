@@ -1,19 +1,25 @@
 from limites.tela_abstrata import TelaAbstrata
+from entidade.professor import Professor
+from controle.controlador_professor import Professor
 
-class TelaSistema(TelaAbstrata):
+class TelaDisciplina(TelaAbstrata):
 
     def __init__(self):
         super().__init__()
 
     def tela_opcoes(self):
-        print("\n---- SEJA BEM VINDO AO CURSO DE SISTEMAS ---- \n")
-        print("Escolha sua opcao")
-        print("1 - Entrar na tela de Professores")
-        print("2 - Entrar na tela de Alunos")
-        print("3 - Entrar na tela de Disciplinas")
-        print("0 - Finalizar sistema")
-        opcao = self.le_num_inteiro("Escolha a opção: ", [1, 2, 3, 0])
+        print("PROFESSORES")
+        print("Escolha a opcao")
+        print("1 - Incluir disciplina")
+        print("2 - Alterar disciplina")
+        print("3 - Listar disciplinas")
+        print("4 - Excluir disciplina")
+        print("0 - Retornar")
+        opcao = self.le_num_inteiro("Escolha alguma opção: ", [1, 2, 3, 4, 0])
         return opcao
+
+    def mostrar_mensagem(self, mensagem):
+        print(mensagem)
 
     def le_num_inteiro(self, mensagem: str = '', inteiros_validos: [] = None):
         while True:
@@ -27,6 +33,3 @@ class TelaSistema(TelaAbstrata):
                 print('ERRO! Digite um valor correto.')
                 if inteiros_validos:
                     print('Valores validos:', inteiros_validos)
-
-    def mostrar_mensagem(self, mensagem):
-        print(mensagem)

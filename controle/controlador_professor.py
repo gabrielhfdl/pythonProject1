@@ -25,7 +25,6 @@ class ControladorProfessor:
 
         if(professor is not None):
             self.__professores.remove(professor)
-            self.listar_professores()
         else:
             self.__tela_professor.mostrar_mensagem('ERRO: Professor não existe!')
 
@@ -56,7 +55,6 @@ class ControladorProfessor:
                         2: self.alterar_professor,
                         3: self.listar_professores,
                         4: self.excluir_professor,
-                        5: self.buscar_professor_por_codigo,
                         0: self.retornar}
         while True:
             opcao_escolhida = self.__tela_professor.tela_opcoes()

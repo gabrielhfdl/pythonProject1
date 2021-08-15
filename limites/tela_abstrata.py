@@ -10,3 +10,7 @@ class TelaAbstrata(ABC):
     @abstractmethod
     def le_num_inteiro(self):
         pass
+
+    @abstractmethod
+    def mostrar_mensagem(self, mensagem):
+        pass
