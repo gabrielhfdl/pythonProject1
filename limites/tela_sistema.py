@@ -1,4 +1,10 @@
-class TelaSistema:
+from limites.tela_abstrata import TelaAbstrata
+
+class TelaSistema(TelaAbstrata):
+
+    def __init__(self):
+        super().__init__()
+
     def tela_opcoes(self):
         print("\n---- SEJA BEM VINDO AO CURSO DE SISTEMAS ---- \n")
         print("Escolha sua opcao")

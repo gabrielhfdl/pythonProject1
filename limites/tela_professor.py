@@ -1,4 +1,10 @@
-class TelaProfessor:
+from limites.tela_abstrata import TelaAbstrata
+
+class TelaProfessor(TelaAbstrata):
+
+    def __init__(self):
+        super().__init__()
+
     def tela_opcoes(self):
         print("PROFESSORES")
         print("Escolha a opcao")
