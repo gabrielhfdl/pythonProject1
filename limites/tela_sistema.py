@@ -6,5 +6,18 @@ class TelaSistema:
         print("2 - Entrar na tela de Alunos")
         print("3 - Entrar na tela de Disciplinas")
         print("0 - Finalizar sistema")
-        opcao = int(input("Escolha a opcao:"))
+        opcao = self.le_num_inteiro("Escolha a opção: ", [1, 2, 3, 0])
         return opcao
+
+    def le_num_inteiro(self, mensagem: str = '', inteiros_validos: [] = None):
+        while True:
+            valor_lido = input(mensagem)
+            try:
+                inteiro = int(valor_lido)
+                if inteiros_validos and inteiro not in inteiros_validos:
+                    raise ValueError
+                return inteiro
+            except ValueError:
+                print('ERRO! Digite um valor correto.')
+                if inteiros_validos:
+                    print('Valores validos:', inteiros_validos)
