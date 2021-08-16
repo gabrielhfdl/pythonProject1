@@ -16,7 +16,7 @@ class ControladorAlunos:
 
     def incluir_aluno(self):
         dados_aluno = self.__tela_alunos.pega_dados_aluno()
-        aluno = aluno(dados_aluno["nome"], dados_aluno["matricula"], dados_aluno["idade"])
+        aluno = Aluno(dados_aluno["nome"], dados_aluno["matricula"], dados_aluno["idade"])
         self.__alunos.append(aluno)
 
     def excluir_aluno(self):

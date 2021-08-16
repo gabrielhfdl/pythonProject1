@@ -1,6 +1,4 @@
 from limites.tela_abstrata import TelaAbstrata
-from entidade.professor import Professor
-from controle.controlador_professor import Professor
 
 class TelaDisciplina(TelaAbstrata):
 
