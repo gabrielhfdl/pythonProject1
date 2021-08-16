@@ -40,7 +40,7 @@ class ControladorAlunos:
             aluno.idade = novos_dados_aluno["idade"]
             self.listar_alunos()
         else:
-            self.__tela_alunos.mostrar_aluno("ERRO: aluno não existe")
+            self.__tela_alunos.mostrar_aluno("ERRO: Aluno não existe")
 
     def listar_alunos(self):
         for aluno in self.__alunos:

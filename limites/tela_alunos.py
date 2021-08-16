@@ -19,7 +19,7 @@ class TelaAlunos(TelaAbstrata):
     def pega_dados_aluno(self):
         print("--- DADOS DO ALUNO ---")
         nome = input('Nome: ')
-        matricula = input('Código: ')
+        matricula = input('Matricula: ')
         idade = int(input('Idade: '))
         return {"nome": nome, "matricula": matricula, "idade": idade}  ## fazer validade para entradas dps
 
@@ -30,7 +30,7 @@ class TelaAlunos(TelaAbstrata):
         print("---------------------")
 
     def selecionar_aluno(self):
-        matricula = input("Entre com o código do aluno que deseja selecionar: ")
+        matricula = input("Entre com a matricula do aluno que deseja selecionar: ")
         return matricula
 
     def mostrar_mensagem(self, mensagem):
