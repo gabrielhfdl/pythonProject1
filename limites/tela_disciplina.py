@@ -49,3 +49,7 @@ class TelaDisciplina(TelaAbstrata):
         print("LIMITE DA DISCIPLINA ", dados_disciplina["limite"])
         print("PROFESSOR DA DISCIPLINA ", dados_disciplina["professor"])
         print("\n")
+
+    def seleciona_disciplina(self):
+        codigo = input("Código da disciplina: ")
+        return codigo
