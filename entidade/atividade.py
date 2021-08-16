@@ -1,6 +1,6 @@
 from datetime import date
 
-class Atividades:
+class Atividade:
     def __init__(self, titulo: str, descricao: str, prazo: date, data_entregue: date, nota: int, status: str):
         self.__titulo = titulo
         self.__descricao = descricao
@@ -57,12 +57,12 @@ class Atividades:
     def status(self, status):
         self.__status = status
 
-class Trabalho(Atividades):
+class Trabalho(Atividade):
     def __init__(self, titulo: str, descricao: str, prazo: date, data_entregue: date, nota: int, status: str, nome: str):
         super().__init__(titulo, descricao, prazo, data_entregue, nota, status)
         self.__nome = nome
 
-class Prova(Atividades):
+class Prova(Atividade):
     def __init__(self, titulo: str, descricao: str, prazo: date, data_entregue: date, nota: int, status: str, nome: str):
         super().__init__(titulo, descricao, prazo, data_entregue, nota, status)
         self.__nome = nome

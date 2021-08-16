@@ -1,5 +1,5 @@
 from limites.tela_alunos import TelaAlunos
-from entidade.alunos import Alunos
+from entidade.aluno import Aluno
 
 
 class ControladorAlunos:
