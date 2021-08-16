@@ -33,3 +33,19 @@ class TelaDisciplina(TelaAbstrata):
                 print('ERRO! Digite um valor correto.')
                 if inteiros_validos:
                     print('Valores validos:', inteiros_validos)
+
+    def pega_dados_disciplina(self):
+        print("-------- DADOS DISCIPLINA ----------")
+        nome = input("Nome: ")
+        codigo = input("Código: ")
+        limite = input("Limite: ")
+        professor = input("Professor")
+
+        return {"nome:": nome, "codigo": codigo, "limite": limite, "professor": professor}
+
+    def mostra_disciplina(self, dados_disciplina):
+        print("NOME DA DISCIPLINA: ", dados_disciplina["nome"])
+        print("CODIGO DA DISCIPLINA: ", dados_disciplina["codigo"])
+        print("LIMITE DA DISCIPLINA ", dados_disciplina["limite"])
+        print("PROFESSOR DA DISCIPLINA ", dados_disciplina["professor"])
+        print("\n")
