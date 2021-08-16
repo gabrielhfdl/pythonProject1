@@ -1,5 +1,4 @@
 
-
 class Aluno:
     def __init__(self, nome: str, matricula: str, idade: int):
         self.__nome = nome
