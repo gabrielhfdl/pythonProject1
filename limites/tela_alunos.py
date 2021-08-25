@@ -20,8 +20,8 @@ class TelaAlunos(TelaAbstrata):
         print("--- DADOS DO ALUNO ---")
         nome = input('Nome: ')
         matricula = input('Matricula: ')
-        idade = int(input('Idade: '))
-        return {"nome": nome, "matricula": matricula, "idade": idade}  ## fazer validade para entradas dps
+        idade = self.verifica_idade('Idade: ', list(range(1, 151, 1)))
+        return {"nome": nome, "matricula": matricula, "idade": idade}
 
     def mostrar_aluno(self, dados_aluno):
         print("NOME DO ALUNO: ", dados_aluno["nome"])
@@ -48,3 +48,16 @@ class TelaAlunos(TelaAbstrata):
                 print('ERRO! Digite um valor correto.')
                 if inteiros_validos:
                     print('Valores validos:', inteiros_validos)
+
+    def verifica_idade(self, idade: str = '', valores_validos_idades: [] = None):
+        while True:
+            idade_lida = input(idade)
+            try:
+                idade = int(idade_lida)
+                if valores_validos_idades and idade not in valores_validos_idades:
+                    raise ValueError
+                return idade
+            except ValueError:
+                print('ERRO!')
+                if valores_validos_idades:
+                    print('Entre com um valor de idade entre: ', valores_validos_idades)

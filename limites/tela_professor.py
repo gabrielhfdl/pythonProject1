@@ -20,7 +20,7 @@ class TelaProfessor(TelaAbstrata):
         print("--- DADOS DO PROFESSOR ---")
         nome = input('Nome: ')
         codigo = input('Código: ')
-        idade = int(input('Idade: '))
+        idade = self.verifica_idade('Idade: ', list(range(1, 151, 1)))
         return {"nome": nome, "codigo": codigo, "idade": idade}  ## fazer validade para entradas dps
 
     def mostrar_professor(self, dados_professor):
@@ -48,3 +48,16 @@ class TelaProfessor(TelaAbstrata):
                 print('ERRO! Digite um valor correto.')
                 if inteiros_validos:
                     print('Valores validos:', inteiros_validos)
+
+    def verifica_idade(self, idade: str = '', valores_validos_idades: [] = None):
+        while True:
+            idade_lida = input(idade)
+            try:
+                idade = int(idade_lida)
+                if valores_validos_idades and idade not in valores_validos_idades:
+                    raise ValueError
+                return idade
+            except ValueError:
+                print('ERRO!')
+                if valores_validos_idades:
+                    print('Entre com um valor de idade entre: ', valores_validos_idades)

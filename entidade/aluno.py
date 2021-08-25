@@ -2,8 +2,8 @@
 class Aluno:
     def __init__(self, nome: str, matricula: str, idade: int):
         self.__nome = nome
-        self.__nome = matricula
-        self.__nome = idade
+        self.__matricula = matricula
+        self.__idade = idade
 
     @property
     def nome(self):
@@ -28,4 +28,3 @@ class Aluno:
     @idade.setter
     def idade(self, idade):
         self.__idade = idade
-

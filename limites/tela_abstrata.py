@@ -14,3 +14,4 @@ class TelaAbstrata(ABC):
     @abstractmethod
     def mostrar_mensagem(self, mensagem):
         pass
+

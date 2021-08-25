@@ -16,7 +16,7 @@ class ControladorAtividades:
 
     def incluir_atividade(self):
         dados_atividade = self.__tela_atividades.pega_dados_atividade()
-        atividade = atividade(dados_atividade["titulo"], dados_atividade["prazo"], dados_atividade["descricao"], dados_atividade["data_entregue"], dados_atividade["nota"], dados_atividade["status"])
+        atividade = Atividade(dados_atividade["titulo"], dados_atividade["prazo"], dados_atividade["descricao"], dados_atividade["data_entregue"], dados_atividade["nota"], dados_atividade["status"])
         self.__atividades.append(atividade)
 
     def excluir_atividade(self):
