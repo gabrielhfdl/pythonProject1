@@ -72,8 +72,6 @@ class TelaProfessor(TelaAbstrata):
 
         sg.Popup('--- LISTA DE PROFESSORES ---', string_todos_professores)
 
-
-
     def selecionar_professor(self):
         sg.ChangeLookAndFeel('DarkGreen1')
         layout = [
