@@ -4,7 +4,6 @@ import PySimpleGUI as sg
 class TelaProfessor(TelaAbstrata):
 
     def __init__(self):
-        super().__init__()
         self.__window = None
         self.init_opcoes()
 
@@ -53,35 +52,44 @@ class TelaProfessor(TelaAbstrata):
             [sg.Text('Idade:', size=(15, 1)), sg.InputText('', key='idade')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
             ]
-        self.__window = sg.Window('CADASTRO DE PROFESSOR').Layout(layout)
+        self.__window = sg.Window('CADASTRO DE PROFESSORES').Layout(layout)
 
         button, values = self.open()
-
         nome = values['nome']
-        codigo = values['telefone']
-        idade = values['cpf']
+        codigo = values['codigo']
+        idade = values['idade']
 
         self.close()
         return {"nome": nome, "codigo": codigo, "idade": idade}
-
-
-        # nome = input('Nome: ')
-        # codigo = input('Código: ')
-        # idade = self.verifica_idade('Idade: ', list(range(1, 151, 1)))
-        # return {"nome": nome, "codigo": codigo, "idade": idade}
+    ##TRATAR DADOS AQUI
 
     def mostrar_professor(self, dados_professor):
-        print("NOME DO PROFESSOR: ", dados_professor["nome"])
-        print("CODIGO DO PROFESSOR: ", dados_professor["codigo"])
-        print("IDADE DO PROFESSOR: ", dados_professor["idade"])
-        print("---------------------")
+        string_todos_professores = ''
+        for dado in dados_professor:
+            string_todos_professores = string_todos_professores + 'Nome do professor: ' + dado["nome"] + '\n'
+            string_todos_professores = string_todos_professores + 'Código do professor: ' + str(dado["codigo"]) + '\n'
+            string_todos_professores = string_todos_professores + 'Idade do professor: ' + str(dado["idade"]) + '\n\n'
+
+        sg.Popup('--- LISTA DE PROFESSORES ---', string_todos_professores)
+
+
 
     def selecionar_professor(self):
-        codigo = input("Entre com o código do professor que deseja selecionar: ")
+        sg.ChangeLookAndFeel('DarkGreen1')
+        layout = [
+            [sg.Text('--- SELECIONAR PROFESSOR ---', font=("Helvica", 25))],
+            [sg.Text('Digite o código do professor:', font=("Helvica", 15))],
+            [sg.Text('CÓDIGO:', size=(15, 1)), sg.InputText('', key='codigo')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Selecionar professor').Layout(layout)
+        button, values = self.open()
+        codigo = values['codigo']
+        self.close()
         return codigo
 
     def mostrar_mensagem(self, mensagem):
-        print(mensagem)
+        sg.popup("", mensagem)
 
     def le_num_inteiro(self, mensagem: str = '', inteiros_validos: [] = None):
         while True:

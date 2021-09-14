@@ -9,9 +9,9 @@ class ControladorProfessor:
 
     def buscar_professor_por_codigo(self, codigo: int):
         for professor in self.__professores:
-            if professor.codigo == codigo:
+            if(professor.codigo == codigo):
                 return professor
-            return None
+        return None
 
     def incluir_professor(self):
         dados_professor = self.__tela_professor.pega_dados_professor()
@@ -20,11 +20,12 @@ class ControladorProfessor:
 
     def excluir_professor(self):
         self.listar_professores()
-        codigo_professor = self.__tela_professor.pega_dados_professor()
+        codigo_professor = self.__tela_professor.selecionar_professor()
         professor = self.buscar_professor_por_codigo(codigo_professor)
 
         if(professor is not None):
             self.__professores.remove(professor)
+            self.listar_professores()
         else:
             self.__tela_professor.mostrar_mensagem('ERRO: Professor não existe!')
 
@@ -42,10 +43,11 @@ class ControladorProfessor:
             self.__tela_professor.mostrar_professor("ERRO: Professor não existe")
 
     def listar_professores(self):
+        dados_professor = []
         for professor in self.__professores:
-            self.__tela_professor.mostrar_professor({"nome": professor.nome,
-                                                     "codigo": professor.codigo,
-                                                     "idade": professor.idade})
+            # self.__tela_professor.mostrar_professor({"nome": professor.nome,"codigo": professor.codigo,"idade": professor.idade})
+            dados_professor.append({"nome": professor.nome, "codigo": professor.codigo, "idade": professor.idade})
+        self.__tela_professor.mostrar_professor(dados_professor)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
