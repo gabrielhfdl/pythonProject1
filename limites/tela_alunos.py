@@ -60,4 +60,4 @@ class TelaAlunos(TelaAbstrata):
             except ValueError:
                 print('ERRO!')
                 if valores_validos_idades:
-                    print('Entre com um valor de idade entre: ', valores_validos_idades)
+                    print('Entre com um valor de idade entre 1 e 150 ')

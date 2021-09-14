@@ -1,18 +1,26 @@
 from limites.tela_abstrata import TelaAbstrata
+import PySimpleGUI as sg
+
 
 class TelaSistema(TelaAbstrata):
-
     def __init__(self):
         super().__init__()
+        self.__window = None
+        self.init_components()
 
     def tela_opcoes(self):
-        print("\n---- SEJA BEM VINDO AO CURSO DE SISTEMAS ---- \n")
-        print("Escolha sua opcao")
-        print("1 - Entrar na tela de Professores")
-        print("2 - Entrar na tela de Alunos")
-        print("3 - Entrar na tela de Disciplinas")
-        print("0 - Finalizar sistema")
-        opcao = self.le_num_inteiro("Escolha a opção: ", [1, 2, 3, 0])
+        self.init_components()
+        button, values = self.__window.Read()
+        opcao = 0
+        if values['1']:
+            opcao = 1
+        if values['2']:
+            opcao = 2
+        if values['3']:
+            opcao = 3
+        if values['0'] or button in (None,'Cancelar'):
+            opcao = 0
+        self.close()
         return opcao
 
     def le_num_inteiro(self, mensagem: str = '', inteiros_validos: [] = None):
@@ -30,3 +38,19 @@ class TelaSistema(TelaAbstrata):
 
     def mostrar_mensagem(self, mensagem):
         print(mensagem)
+
+    def init_components(self):
+        sg.ChangeLookAndFeel('DarkGreen1')
+        layout = [
+            [sg.Text('--- BEM VINDO AO CURSO DE SISTEMAS DE INFORMAÇÃO ---', font=("Arial",20))],
+            [sg.Text('Escolha sua opção de menu:', font=("Arial",10))],
+            [sg.Radio('Menu de professores',"RD1", key='1')],
+            [sg.Radio('Menu de alunos',"RD1", key='2')],
+            [sg.Radio('Menu de disciplinas',"RD1", key='3')],
+            [sg.Radio('Finalizar sistema',"RD1", key='0')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('CADASTRO SISTEMAS DE INFORMAÇÃO - UFSC ').Layout(layout)
+
+    def close(self):
+        self.__window.Close()
