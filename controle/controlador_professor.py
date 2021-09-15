@@ -1,14 +1,19 @@
 from limites.tela_professor import TelaProfessor
 from entidade.professor import Professor
+from DAOs.professor_dao import ProfessorDAO
+
 
 class ControladorProfessor:
     def __init__(self, controlador_sistema):
-        self.__professores = []
+
+        self.__professores_DAO = ProfessorDAO()
+
         self.__tela_professor = TelaProfessor()
         self.__controlador_sistema = controlador_sistema
 
     def buscar_professor_por_codigo(self, codigo: int):
-        for professor in self.__professores:
+        for professor in self.__professores_DAO.get_all():
+            print(professor.cpf)
             if(professor.codigo == codigo):
                 return professor
         return None
@@ -16,7 +21,7 @@ class ControladorProfessor:
     def incluir_professor(self):
         dados_professor = self.__tela_professor.pega_dados_professor()
         professor = Professor(dados_professor["nome"], dados_professor["codigo"], dados_professor["idade"])
-        self.__professores.append(professor)
+        self.__professores_DAO.add(professor)
 
     def excluir_professor(self):
         self.listar_professores()
@@ -24,7 +29,7 @@ class ControladorProfessor:
         professor = self.buscar_professor_por_codigo(codigo_professor)
 
         if(professor is not None):
-            self.__professores.remove(professor)
+            self.__professores_DAO.remove(professor)
             self.listar_professores()
         else:
             self.__tela_professor.mostrar_mensagem('ERRO: Professor não existe!')
@@ -38,14 +43,14 @@ class ControladorProfessor:
             professor.nome = novos_dados_professor["nome"]
             professor.codigo = novos_dados_professor["codigo"]
             professor.idade = novos_dados_professor["idade"]
+            self.__professores_DAO.update(professor)
             self.listar_professores()
         else:
             self.__tela_professor.mostrar_professor("ERRO: Professor não existe")
 
     def listar_professores(self):
         dados_professor = []
-        for professor in self.__professores:
-            # self.__tela_professor.mostrar_professor({"nome": professor.nome,"codigo": professor.codigo,"idade": professor.idade})
+        for professor in self.__professores_DAO.get_all():
             dados_professor.append({"nome": professor.nome, "codigo": professor.codigo, "idade": professor.idade})
         self.__tela_professor.mostrar_professor(dados_professor)
 
