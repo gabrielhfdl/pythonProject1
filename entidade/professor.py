@@ -9,7 +9,7 @@ class Professor:
         return self.__nome
 
     @nome.setter
-    def nome(self, nome):
+    def nome(self, nome: str):
         self.__nome = nome
 
     @property
@@ -17,7 +17,7 @@ class Professor:
         return self.__idade
 
     @idade.setter
-    def idade(self, idade):
+    def idade(self, idade: int):
         self.__idade = idade
 
     @property
@@ -25,5 +25,5 @@ class Professor:
         return self.__codigo
 
     @codigo.setter
-    def codigo(self, codigo):
+    def codigo(self, codigo: int):
         self.__codigo = codigo

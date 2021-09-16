@@ -12,7 +12,7 @@ class ControladorAlunos:
         for aluno in self.__alunos:
             if aluno.matricula == matricula:
                 return aluno
-            return None
+        return None
 
     def incluir_aluno(self):
         dados_aluno = self.__tela_alunos.pega_dados_aluno()
@@ -21,7 +21,7 @@ class ControladorAlunos:
 
     def excluir_aluno(self):
         self.listar_alunos()
-        matricula_aluno = self.__tela_alunos.pega_dados_aluno()
+        matricula_aluno = self.__tela_alunos.selecionar_aluno()
         aluno = self.buscar_aluno_por_matricula(matricula_aluno)
 
         if(aluno is not None):
@@ -43,10 +43,10 @@ class ControladorAlunos:
             self.__tela_alunos.mostrar_aluno("ERRO: Aluno não existe")
 
     def listar_alunos(self):
+        dados_alunos = []
         for aluno in self.__alunos:
-            self.__tela_alunos.mostrar_aluno({"nome": aluno.nome,
-                                                     "matricula": aluno.matricula,
-                                                     "idade": aluno.idade})
+            dados_alunos.append({"nome": aluno.nome,"matricula": aluno.matricula, "idade": aluno.idade})
+        self.__tela_alunos.mostrar_aluno(dados_alunos)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

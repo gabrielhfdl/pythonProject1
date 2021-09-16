@@ -56,8 +56,8 @@ class TelaProfessor(TelaAbstrata):
 
         button, values = self.open()
         nome = values['nome']
-        codigo = values['codigo']
-        idade = values['idade']
+        codigo = int(values['codigo'])
+        idade = int(values['idade'])
 
         self.close()
         return {"nome": nome, "codigo": codigo, "idade": idade}
@@ -66,16 +66,16 @@ class TelaProfessor(TelaAbstrata):
     def mostrar_professor(self, dados_professor):
         string_todos_professores = ''
         for dado in dados_professor:
-            string_todos_professores = string_todos_professores + 'Nome do professor: ' + dado["nome"] + '\n'
-            string_todos_professores = string_todos_professores + 'Código do professor: ' + str(dado["codigo"]) + '\n'
-            string_todos_professores = string_todos_professores + 'Idade do professor: ' + str(dado["idade"]) + '\n\n'
+            string_todos_professores = string_todos_professores + "Nome do professor: " + str(dado["nome"]) + '\n'
+            string_todos_professores = string_todos_professores + "Código do professor: " + str(dado["codigo"]) + '\n'
+            string_todos_professores = string_todos_professores + "Idade do professor:" + str(dado["idade"]) + '\n\n'
 
         sg.Popup('--- LISTA DE PROFESSORES ---', string_todos_professores)
 
     def selecionar_professor(self):
         sg.ChangeLookAndFeel('DarkGreen1')
         layout = [
-            [sg.Text('--- SELECIONAR PROFESSOR ---', font=("Helvica", 25))],
+            [sg.Text('--- SELECIONAR PROFESSOR PELO CÓDIGO ---', font=("Helvica", 25))],
             [sg.Text('Digite o código do professor:', font=("Helvica", 15))],
             [sg.Text('CÓDIGO:', size=(15, 1)), sg.InputText('', key='codigo')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]

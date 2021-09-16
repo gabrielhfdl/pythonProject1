@@ -7,8 +7,8 @@ class ProfessorDAO(DAO):
         super().__init__('professores.pkl')
 
     def add(self, professor: Professor):
-        if ((professor is not None) and isinstance(professor, Professor) and isinstance(professor.codigo, int)):
-            super().add(professor.codigo, professor)
+        if (isinstance(professor.codigo, int)) and (professor is not None) and isinstance(professor, Professor):
+            super().add(professor.codigo, Professor)
 
     def get(self, key:int):
         if isinstance(key, int):
