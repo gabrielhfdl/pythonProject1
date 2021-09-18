@@ -61,6 +61,7 @@ class TelaAlunos(TelaAbstrata):
         matricula = int(values['matricula'])
         idade = int(values['idade'])
         self.close()
+
         return {"nome": nome, "matricula": matricula, "idade": idade}
 
     def selecionar_aluno(self):

@@ -1,21 +1,8 @@
-from entidade.professor import Professor
-
 class Disciplina:
-    def __init__(self, nome: str, codigo: int, limite: int, professor: Professor):
+    def __init__(self, nome: str, codigo: int, limite: int):
         self.__nome = nome
         self.__codigo = codigo
         self.__limite = limite
-        if (isinstance(professor, Professor)):
-            self.__professor = professor
-
-    @property
-    def professor(self):
-        return self.__professor
-
-    @professor.setter
-    def professor(self, professor: Professor):
-        if (isinstance(professor, Professor)):
-            self.__professor = professor
 
     @property
     def nome(self):
