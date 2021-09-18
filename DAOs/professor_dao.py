@@ -10,6 +10,10 @@ class ProfessorDAO(DAO):
         if (isinstance(professor.codigo, int)) and (professor is not None) and isinstance(professor, Professor):
             super().add(professor.codigo, professor)
 
+    def update(self, professor: Professor):
+        if((professor is not None) and isinstance(professor, Professor) and isinstance(professor.codigo, int)):
+            super().update(professor.codigo, professor)
+
     def get(self, key: int):
         if isinstance(key, int):
             return super().get(key)
@@ -18,6 +22,3 @@ class ProfessorDAO(DAO):
         if isinstance(key, int):
             return super().remove(key)
 
-    def update(self, professor: Professor):
-        if((professor is not None) and isinstance(professor, Professor) and isinstance(professor.codigo, int)):
-            super().update(professor.codigo, professor)

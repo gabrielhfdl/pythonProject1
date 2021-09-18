@@ -20,7 +20,6 @@ class ControladorProfessor:
         dados_professor = self.__tela_professor.pega_dados_professor()
         professor = Professor(dados_professor["nome"], dados_professor["codigo"], dados_professor["idade"])
         self.__professor_DAO.add(professor)
-        print(self.__professor_DAO.get(dados_professor["codigo"]).nome, "testando")
 
     def excluir_professor(self):
         self.listar_professores()
@@ -28,7 +27,7 @@ class ControladorProfessor:
         professor = self.buscar_professor_por_codigo(codigo_professor)
 
         if(professor is not None):
-            self.__professor_DAO.remove(professor)
+            self.__professor_DAO.remove(professor.codigo)
             self.listar_professores()
         else:
             self.__tela_professor.mostrar_mensagem('ERRO: Professor não existe!')
@@ -51,7 +50,6 @@ class ControladorProfessor:
     def listar_professores(self):
         dados_professores = []
         for professor in self.__professor_DAO.get_all():
-            print(professor.nome)
             dados_professores.append({"nome": professor.nome, "codigo": professor.codigo, "idade": professor.idade})
         self.__tela_professor.mostrar_professor(dados_professores)
 

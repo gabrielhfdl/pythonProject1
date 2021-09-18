@@ -82,7 +82,7 @@ class TelaProfessor(TelaAbstrata):
         ]
         self.__window = sg.Window('Selecionar professor').Layout(layout)
         button, values = self.open()
-        codigo = values['codigo']
+        codigo = int(values['codigo'])
         self.close()
         return codigo
 
