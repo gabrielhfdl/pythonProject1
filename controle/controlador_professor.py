@@ -7,7 +7,6 @@ class ControladorProfessor:
     def __init__(self, controlador_sistema):
 
         self.__professor_DAO = ProfessorDAO()
-
         self.__tela_professor = TelaProfessor()
         self.__controlador_sistema = controlador_sistema
 
@@ -21,6 +20,7 @@ class ControladorProfessor:
         dados_professor = self.__tela_professor.pega_dados_professor()
         professor = Professor(dados_professor["nome"], dados_professor["codigo"], dados_professor["idade"])
         self.__professor_DAO.add(professor)
+        print(self.__professor_DAO.get(dados_professor["codigo"]).nome, "testando")
 
     def excluir_professor(self):
         self.listar_professores()
@@ -49,10 +49,11 @@ class ControladorProfessor:
             self.__tela_professor.mostrar_mensagem("ERRO: Professor não existe")
 
     def listar_professores(self):
-        dados_professor = []
+        dados_professores = []
         for professor in self.__professor_DAO.get_all():
-            dados_professor.append({"nome": professor.nome, "codigo": professor.codigo, "idade": professor.idade})
-        self.__tela_professor.mostrar_professor(dados_professor)
+            print(professor.nome)
+            dados_professores.append({"nome": professor.nome, "codigo": professor.codigo, "idade": professor.idade})
+        self.__tela_professor.mostrar_professor(dados_professores)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

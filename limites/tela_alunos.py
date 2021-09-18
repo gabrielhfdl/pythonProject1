@@ -60,10 +60,9 @@ class TelaAlunos(TelaAbstrata):
         nome = values['nome']
         matricula = (values['matricula'])
         idade = (values['idade'])
+        idade = self.verifica_idade(idade, range(1,151,1))
         self.close()
         return {"nome": nome, "matricula": matricula, "idade": idade}
-
-
 
     def selecionar_aluno(self):
         sg.ChangeLookAndFeel('DarkGreen1')
@@ -80,7 +79,6 @@ class TelaAlunos(TelaAbstrata):
         self.close()
         return matricula
 
-
     def mostrar_aluno(self, dados_aluno):
         string_todos_amigos = ""
         for dado in dados_aluno:
@@ -89,8 +87,6 @@ class TelaAlunos(TelaAbstrata):
             string_todos_amigos = string_todos_amigos + "Idade: " + str(dado["idade"]) + '\n\n'
 
         sg.Popup('--- LISTA DE ALUNOS ---', string_todos_amigos)
-
-
 
     def mostrar_mensagem(self, mensagem):
         sg.popup("", mensagem)
@@ -108,7 +104,7 @@ class TelaAlunos(TelaAbstrata):
                 if inteiros_validos:
                     print('Valores validos:', inteiros_validos)
 
-    def verifica_idade(self, idade: str = '', valores_validos_idades: [] = None):
+    def verifica_idade(self, idade, valores_validos_idades: [] = None):
         while True:
             idade_lida = input(idade)
             try:
@@ -117,6 +113,6 @@ class TelaAlunos(TelaAbstrata):
                     raise ValueError
                 return idade
             except ValueError:
-                print('ERRO!')
+                self.mostrar_mensagem('Erro! Insira um entre 1-150')
                 if valores_validos_idades:
                     print('Entre com um valor de idade entre 1 e 150 ')

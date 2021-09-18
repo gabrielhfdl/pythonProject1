@@ -1,5 +1,5 @@
 class Professor:
-    def __init__(self, nome: str, codigo: str, idade: int):
+    def __init__(self, nome: str, codigo: int, idade: int):
         self.__nome = nome
         self.__idade = idade
         self.__codigo = codigo

@@ -1,6 +1,6 @@
 
 class Aluno:
-    def __init__(self, nome: str, matricula: str, idade: int):
+    def __init__(self, nome: str, matricula: int, idade: int):
         self.__nome = nome
         self.__matricula = matricula
         self.__idade = idade

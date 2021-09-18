@@ -8,9 +8,9 @@ class ProfessorDAO(DAO):
 
     def add(self, professor: Professor):
         if (isinstance(professor.codigo, int)) and (professor is not None) and isinstance(professor, Professor):
-            super().add(professor.codigo, Professor)
+            super().add(professor.codigo, professor)
 
-    def get(self, key:int):
+    def get(self, key: int):
         if isinstance(key, int):
             return super().get(key)
 
