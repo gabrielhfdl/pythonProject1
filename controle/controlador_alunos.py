@@ -19,6 +19,7 @@ class ControladorAlunos:
         dados_aluno = self.__tela_alunos.pega_dados_aluno()
         aluno = Aluno(dados_aluno["nome"], dados_aluno["matricula"], dados_aluno["idade"])
         self.__alunos_DAO.add(aluno)
+        self.listar_alunos()
 
     def excluir_aluno(self):
         self.listar_alunos()
@@ -26,7 +27,8 @@ class ControladorAlunos:
         aluno = self.buscar_aluno_por_matricula(matricula_aluno)
 
         if(aluno is not None):
-            self.__alunos_DAO.remove(aluno)
+            self.__alunos_DAO.remove(aluno.matricula)
+            self.__tela_alunos.mostrar_mensagem('Aluno excluído com sucesso!')
             self.listar_alunos()
         else:
             self.__tela_alunos.mostrar_mensagem('ERRO: aluno não existe!')

@@ -27,6 +27,7 @@ class ControladorProfessor:
 
         if(professor is not None):
             self.__professor_DAO.remove(professor.codigo)
+            self.__tela_professor.mostrar_professor('Professor excluído com sucesso!')
             self.listar_professores()
         else:
             self.__tela_professor.mostrar_mensagem('ERRO: Professor não existe!')

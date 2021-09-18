@@ -58,8 +58,8 @@ class TelaAlunos(TelaAbstrata):
 
         button, values = self.open()
         nome = values['nome']
-        matricula = (values['matricula'])
-        idade = (values['idade'])
+        matricula = int(values['matricula'])
+        idade = int(values['idade'])
         self.close()
         return {"nome": nome, "matricula": matricula, "idade": idade}
 
@@ -74,7 +74,7 @@ class TelaAlunos(TelaAbstrata):
 
         self.__window = sg.Window('Selecionar aluno').Layout(layout)
         button, values = self.open()
-        matricula = values['matricula']
+        matricula = int(values['matricula'])
         self.close()
         return matricula
 
