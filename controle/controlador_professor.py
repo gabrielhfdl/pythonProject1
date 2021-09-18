@@ -5,7 +5,6 @@ from DAOs.professor_dao import ProfessorDAO
 
 class ControladorProfessor:
     def __init__(self, controlador_sistema):
-
         self.__professor_DAO = ProfessorDAO()
         self.__tela_professor = TelaProfessor()
         self.__controlador_sistema = controlador_sistema

@@ -60,7 +60,6 @@ class TelaAlunos(TelaAbstrata):
         nome = values['nome']
         matricula = (values['matricula'])
         idade = (values['idade'])
-        idade = self.verifica_idade(idade, range(1,151,1))
         self.close()
         return {"nome": nome, "matricula": matricula, "idade": idade}
 
