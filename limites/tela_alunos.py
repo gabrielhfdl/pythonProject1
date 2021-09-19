@@ -104,15 +104,4 @@ class TelaAlunos(TelaAbstrata):
                 if inteiros_validos:
                     print('Valores validos:', inteiros_validos)
 
-    def verifica_idade(self, idade, valores_validos_idades: [] = None):
-        while True:
-            idade_lida = input(idade)
-            try:
-                idade = int(idade_lida)
-                if valores_validos_idades and idade not in valores_validos_idades:
-                    raise ValueError
-                return idade
-            except ValueError:
-                self.mostrar_mensagem('Erro! Insira um entre 1-150')
-                if valores_validos_idades:
-                    print('Entre com um valor de idade entre 1 e 150 ')
+

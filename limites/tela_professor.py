@@ -54,14 +54,28 @@ class TelaProfessor(TelaAbstrata):
             ]
         self.__window = sg.Window('CADASTRO DE PROFESSORES').Layout(layout)
 
-        button, values = self.open()
-        nome = values['nome']
-        codigo = int(values['codigo'])
-        idade = int(values['idade'])
 
-        self.close()
-        return {"nome": nome, "codigo": codigo, "idade": idade}
-        ##TRATAR DADOS AQUI
+        try:
+            button, values = self.open()
+            nome = (values['nome'])
+            codigo = int(values['codigo'])
+            idade = int(values['idade'])
+
+            if idade > 150 or idade < 1:
+                raise ValueError
+            self.close()
+            return {"nome": nome, "codigo": codigo, "idade": idade}
+
+        except ValueError:
+            self.mostrar_mensagem('ERRO: Escolha valor inteiro para código e idade entre 1 e 150)')
+            self.close()
+            return self.pega_dados_professor()
+
+
+
+
+
+
 
     def mostrar_professor(self, dados_professor):
         string_todos_professores = ''
@@ -81,6 +95,7 @@ class TelaProfessor(TelaAbstrata):
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Selecionar professor').Layout(layout)
+
         button, values = self.open()
         codigo = int(values['codigo'])
         self.close()
@@ -102,15 +117,3 @@ class TelaProfessor(TelaAbstrata):
                 if inteiros_validos:
                     print('Valores validos:', inteiros_validos)
 
-    def verifica_idade(self, idade: str = '', valores_validos_idades: [] = None):
-        while True:
-            idade_lida = input(idade)
-            try:
-                idade = int(idade_lida)
-                if valores_validos_idades and idade not in valores_validos_idades:
-                    raise ValueError
-                return idade
-            except ValueError:
-                print('ERRO!')
-                if valores_validos_idades:
-                    print('Entre com um valor de idade entre 1 e 150 ')
