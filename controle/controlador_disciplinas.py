@@ -21,11 +21,17 @@ class ControladorDisciplinas:
 
     def lista_disciplinas(self):
         dados_disciplina = []
-        for disciplina in self.__disciplina_DAO.get_all():
-            dados_disciplina.append({"nome": disciplina.nome,
-                                                      "codigo": disciplina.codigo,
-                                                      "limite": disciplina.limite}),
-        self.__tela_disciplina.mostra_disciplina(dados_disciplina)
+        try:
+            if len(self.__disciplina_DAO.get_all()) == 0:
+                raise Exception
+            for disciplina in self.__disciplina_DAO.get_all():
+                dados_disciplina.append({"nome": disciplina.nome,
+                                                          "codigo": disciplina.codigo,
+                                                          "limite": disciplina.limite}),
+            self.__tela_disciplina.mostra_disciplina(dados_disciplina)
+
+        except Exception:
+            self.__tela_disciplina.mostrar_mensagem('A sua lista está vazia!')
 
     def pega_disciplina_por_codigo(self, codigo: int):
         for disciplina in self.__disciplina_DAO.get_all():

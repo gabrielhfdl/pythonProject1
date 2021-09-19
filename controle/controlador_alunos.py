@@ -49,10 +49,16 @@ class ControladorAlunos:
             self.__tela_alunos.mostrar_aluno("ERRO: Aluno não existe")
 
     def listar_alunos(self):
-        dados_alunos = []
-        for aluno in self.__alunos_DAO.get_all():
-            dados_alunos.append({"nome": aluno.nome, "matricula": aluno.matricula, "idade": aluno.idade})
-        self.__tela_alunos.mostrar_aluno(dados_alunos)
+        try:
+            dados_alunos = []
+            if len(self.__alunos_DAO.get_all()) == 0:
+                raise Exception
+            for aluno in self.__alunos_DAO.get_all():
+                dados_alunos.append({"nome": aluno.nome, "matricula": aluno.matricula, "idade": aluno.idade})
+            self.__tela_alunos.mostrar_aluno(dados_alunos)
+
+        except Exception:
+            self.__tela_alunos.mostrar_mensagem('A sua lista está vazia!')
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

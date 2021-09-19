@@ -48,9 +48,17 @@ class ControladorProfessor:
 
     def listar_professores(self):
         dados_professores = []
-        for professor in self.__professor_DAO.get_all():
-            dados_professores.append({"nome": professor.nome, "codigo": professor.codigo, "idade": professor.idade})
-        self.__tela_professor.mostrar_professor(dados_professores)
+
+        try:
+            if len(self.__professor_DAO.get_all()) == 0:
+                raise Exception
+            for professor in self.__professor_DAO.get_all():
+                dados_professores.append({"nome": professor.nome, "codigo": professor.codigo, "idade": professor.idade})
+            self.__tela_professor.mostrar_professor(dados_professores)
+
+        except Exception:
+            self.__tela_professor.mostrar_mensagem('A sua lista está vazia!')
+
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

@@ -63,19 +63,21 @@ class TelaProfessor(TelaAbstrata):
 
             if idade > 150 or idade < 1:
                 raise ValueError
-            self.close()
-            return {"nome": nome, "codigo": codigo, "idade": idade}
+
+            # if not isinstance(nome, str):
+            #     raise KeyError
 
         except ValueError:
             self.mostrar_mensagem('ERRO: Escolha valor inteiro para código e idade entre 1 e 150)')
             self.close()
             return self.pega_dados_professor()
 
+        # except KeyError:
+        #     self.mostrar_mensagem('ERRO: O nome deve conter apenas letras')
 
-
-
-
-
+        else:
+            self.close()
+            return {"nome": nome, "codigo": codigo, "idade": idade}
 
     def mostrar_professor(self, dados_professor):
         string_todos_professores = ''

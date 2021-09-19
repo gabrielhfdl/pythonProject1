@@ -27,7 +27,7 @@ class TelaDisciplina(TelaAbstrata):
         # sg.theme_previewer()
         sg.ChangeLookAndFeel('DarkGreen1')
         layout = [
-            [sg.Text('-------- AMIGOS ----------', font=("Helvica", 25))],
+            [sg.Text('-------- DISCIPLINAS ----------', font=("Helvica", 25))],
             [sg.Text('Escolha sua opção', font=("Helvica", 15))],
             [sg.Radio('Incluir disciplina', "RD1", key='1')],
             [sg.Radio('Alterar disciplina', "RD1", key='2')],
@@ -38,19 +38,6 @@ class TelaDisciplina(TelaAbstrata):
         ]
         self.__window = sg.Window('Cadastro de disciplinas').Layout(layout)
 
-    def le_num_inteiro(self, mensagem: str = '', inteiros_validos: [] = None):
-        while True:
-            valor_lido = input(mensagem)
-            try:
-                inteiro = int(valor_lido)
-                if inteiros_validos and inteiro not in inteiros_validos:
-                    raise ValueError
-                return inteiro
-            except ValueError:
-                print('ERRO! Digite um valor correto.')
-                if inteiros_validos:
-                    print('Valores validos:', inteiros_validos)
-
     def pega_dados_disciplina(self):
         sg.ChangeLookAndFeel('DarkGreen1')
         layout = [
@@ -60,15 +47,27 @@ class TelaDisciplina(TelaAbstrata):
             [sg.Text('Limite', size=(15, 1)), sg.InputText('', key='limite')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
-        self.__window = sg.Window('Sistema de livros').Layout(layout)
+        self.__window = sg.Window('Disciplinas').Layout(layout)
 
-        button, values = self.open()
-        nome = values['nome']
-        codigo = int(values['codigo'])
-        limite = int(values['limite'])
+        try:
 
-        self.close()
-        return {"nome": nome, "codigo": codigo, "limite": limite}
+            button, values = self.open()
+            nome = values['nome']
+            codigo = int(values['codigo'])
+            limite = int(values['limite'])
+
+            if limite > 40:
+                raise ValueError
+
+            self.close()
+            return {"nome": nome, "codigo": codigo, "limite": limite}
+
+        except ValueError:
+            self.mostrar_mensagem('ERRO: Escolha um código com valor inteiro e limite MENOR do que 40')
+            self.close()
+            return self.pega_dados_disciplina()
+
+
 
     def mostra_disciplina(self, dados_disciplina):
         string_todas_disciplinas = ''
@@ -103,3 +102,17 @@ class TelaDisciplina(TelaAbstrata):
     def open(self):
         button, values = self.__window.Read()
         return button, values
+
+
+    def le_num_inteiro(self, mensagem: str = '', inteiros_validos: [] = None):
+        while True:
+            valor_lido = input(mensagem)
+            try:
+                inteiro = int(valor_lido)
+                if inteiros_validos and inteiro not in inteiros_validos:
+                    raise ValueError
+                return inteiro
+            except ValueError:
+                print('ERRO! Digite um valor correto.')
+                if inteiros_validos:
+                    print('Valores validos:', inteiros_validos)

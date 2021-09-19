@@ -56,13 +56,23 @@ class TelaAlunos(TelaAbstrata):
             ]
         self.__window = sg.Window('CADASTRO DE ALUNOS').Layout(layout)
 
-        button, values = self.open()
-        nome = values['nome']
-        matricula = int(values['matricula'])
-        idade = int(values['idade'])
-        self.close()
+        try:
+            button, values = self.open()
+            nome = values['nome']
+            matricula = int(values['matricula'])
+            idade = int(values['idade'])
 
-        return {"nome": nome, "matricula": matricula, "idade": idade}
+            if idade > 150 or idade < 1:
+                raise ValueError
+
+        except ValueError:
+            self.mostrar_mensagem('ERRO: Escolha valor inteiro para código e idade entre 1 e 150)')
+            self.close()
+            return self.pega_dados_aluno()
+
+        else:
+            self.close()
+            return {"nome": nome, "matricula": matricula, "idade": idade}
 
     def selecionar_aluno(self):
         sg.ChangeLookAndFeel('DarkGreen1')
