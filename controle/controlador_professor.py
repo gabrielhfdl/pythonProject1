@@ -1,7 +1,7 @@
 from limites.tela_professor import TelaProfessor
 from entidade.professor import Professor
 from DAOs.professor_dao import ProfessorDAO
-
+from excecoes.codigo_ja_existente import CodigoJaExistente
 
 class ControladorProfessor:
     def __init__(self, controlador_sistema):
@@ -16,9 +16,18 @@ class ControladorProfessor:
         return None
 
     def incluir_professor(self):
-        dados_professor = self.__tela_professor.pega_dados_professor()
-        professor = Professor(dados_professor["nome"], dados_professor["codigo"], dados_professor["idade"])
-        self.__professor_DAO.add(professor)
+
+        try:
+            dados_professor = self.__tela_professor.pega_dados_professor()
+            professor = Professor(dados_professor["nome"], dados_professor["codigo"], dados_professor["idade"])
+            for i in self.__professor_DAO.get_all():
+                if dados_professor['codigo'] == i.codigo:
+                    raise CodigoJaExistente
+            self.__professor_DAO.add(professor)
+
+        except CodigoJaExistente:
+            self.__tela_professor.mostrar_mensagem("Erro! Código já existente para esse Professor")
+
 
     def excluir_professor(self):
         self.listar_professores()
