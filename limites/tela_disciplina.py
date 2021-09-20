@@ -72,9 +72,9 @@ class TelaDisciplina(TelaAbstrata):
     def mostra_disciplina(self, dados_disciplina):
         string_todas_disciplinas = ''
         for dados in dados_disciplina:
-            string_todas_disciplinas = string_todas_disciplinas + "NOME DISCIPLINA: " + (dados["nome"]) + '\n'
-            string_todas_disciplinas = string_todas_disciplinas + "CÓDIGO DISCIPLINA: " + str(dados["codigo"]) + '\n'
-            string_todas_disciplinas = string_todas_disciplinas + "LIMITE DISCIPLINA: " + str(dados["limite"]) + '\n\n'
+            string_todas_disciplinas = string_todas_disciplinas + "Nome disciplina: " + (dados["nome"]) + '\n'
+            string_todas_disciplinas = string_todas_disciplinas + "Código disciplina: " + str(dados["codigo"]) + '\n'
+            string_todas_disciplinas = string_todas_disciplinas + "Limite disciplina: " + str(dados["limite"]) + '\n\n'
 
         sg.Popup('-------- LISTA DE DISCIPLINAS ----------', string_todas_disciplinas)
 
