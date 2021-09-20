@@ -2,6 +2,8 @@ from limites.tela_disciplina import TelaDisciplina
 from entidade.disciplina import Disciplina
 from DAOs.disciplina_dao import DisciplinaDAO
 from excecoes.codigo_ja_existente import CodigoJaExistente
+from excecoes.lista_vazia import ListaVazia
+
 
 class ControladorDisciplinas:
     def __init__(self, controlador_sistema):
@@ -15,24 +17,31 @@ class ControladorDisciplinas:
 
 
     def incluir_disciplina(self):
-        dados_disciplina = self.__tela_disciplina.pega_dados_disciplina()
-        disciplina = Disciplina(dados_disciplina["nome"],
-                                dados_disciplina["codigo"],
-                                dados_disciplina["limite"],)
-        self.__disciplina_DAO.add(disciplina)
+        try:
+            dados_disciplina = self.__tela_disciplina.pega_dados_disciplina()
+            disciplina = Disciplina(dados_disciplina["nome"],
+                                    dados_disciplina["codigo"],
+                                    dados_disciplina["limite"],)
+            for i in self.__disciplina_DAO.get_all():
+                if dados_disciplina["codigo"] == i.codigo:
+                    raise CodigoJaExistente
+            self.__disciplina_DAO.add(disciplina)
+
+        except CodigoJaExistente:
+            self.__tela_disciplina.mostrar_mensagem("Erro! Código já existe para essa disciplina.")
 
     def lista_disciplinas(self):
         dados_disciplina = []
         try:
             if len(self.__disciplina_DAO.get_all()) == 0:
-                raise Exception
+                raise ListaVazia
             for disciplina in self.__disciplina_DAO.get_all():
                 dados_disciplina.append({"nome": disciplina.nome,
                                                           "codigo": disciplina.codigo,
                                                           "limite": disciplina.limite}),
             self.__tela_disciplina.mostra_disciplina(dados_disciplina)
 
-        except Exception:
+        except ListaVazia:
             self.__tela_disciplina.mostrar_mensagem('A sua lista está vazia!')
 
     def pega_disciplina_por_codigo(self, codigo: int):

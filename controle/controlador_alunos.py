@@ -1,6 +1,8 @@
 from limites.tela_alunos import TelaAlunos
 from entidade.aluno import Aluno
 from DAOs.aluno_dao import AlunoDAO
+from excecoes.lista_vazia import ListaVazia
+from excecoes.codigo_ja_existente import CodigoJaExistente
 
 
 class ControladorAlunos:
@@ -16,10 +18,17 @@ class ControladorAlunos:
         return None
 
     def incluir_aluno(self):
-        dados_aluno = self.__tela_alunos.pega_dados_aluno()
-        aluno = Aluno(dados_aluno["nome"], dados_aluno["matricula"], dados_aluno["idade"])
-        self.__alunos_DAO.add(aluno)
-        self.listar_alunos()
+        try:
+            dados_aluno = self.__tela_alunos.pega_dados_aluno()
+            aluno = Aluno(dados_aluno["nome"], dados_aluno["matricula"], dados_aluno["idade"])
+            for i in self.__alunos_DAO.get_all():
+                if dados_aluno["matricula"] == i.matricula:
+                    raise CodigoJaExistente
+            self.__alunos_DAO.add(aluno)
+            self.listar_alunos()
+
+        except CodigoJaExistente:
+            self.__tela_alunos.mostrar_mensagem("Erro! Aluno já cadastrado no sistema!")
 
     def excluir_aluno(self):
         self.listar_alunos()
@@ -52,12 +61,12 @@ class ControladorAlunos:
         try:
             dados_alunos = []
             if len(self.__alunos_DAO.get_all()) == 0:
-                raise Exception
+                raise ListaVazia
             for aluno in self.__alunos_DAO.get_all():
                 dados_alunos.append({"nome": aluno.nome, "matricula": aluno.matricula, "idade": aluno.idade})
             self.__tela_alunos.mostrar_aluno(dados_alunos)
 
-        except Exception:
+        except ListaVazia:
             self.__tela_alunos.mostrar_mensagem('A sua lista está vazia!')
 
     def retornar(self):

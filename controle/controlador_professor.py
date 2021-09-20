@@ -2,6 +2,7 @@ from limites.tela_professor import TelaProfessor
 from entidade.professor import Professor
 from DAOs.professor_dao import ProfessorDAO
 from excecoes.codigo_ja_existente import CodigoJaExistente
+from excecoes.lista_vazia import ListaVazia
 
 class ControladorProfessor:
     def __init__(self, controlador_sistema):
@@ -60,12 +61,12 @@ class ControladorProfessor:
 
         try:
             if len(self.__professor_DAO.get_all()) == 0:
-                raise Exception
+                raise ListaVazia
             for professor in self.__professor_DAO.get_all():
                 dados_professores.append({"nome": professor.nome, "codigo": professor.codigo, "idade": professor.idade})
             self.__tela_professor.mostrar_professor(dados_professores)
 
-        except Exception:
+        except ListaVazia:
             self.__tela_professor.mostrar_mensagem('A sua lista está vazia!')
 
 

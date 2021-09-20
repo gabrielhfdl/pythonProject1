@@ -1,0 +1,2 @@
+class ListaVazia(Exception):
+    pass
