@@ -1,0 +1,2 @@
+class NaoEhString(Exception):
+    pass

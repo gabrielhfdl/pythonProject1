@@ -55,28 +55,40 @@ class ControladorDisciplinas:
         codigo_disciplina = self.__tela_disciplina.seleciona_disciplina()
         disciplina = self.pega_disciplina_por_codigo(codigo_disciplina)
 
-        if disciplina is not None:
-            self.__disciplina_DAO.remove(disciplina.codigo)
-            self.__tela_disciplina.mostrar_mensagem('Disciplina excluída com sucesso')
-            self.lista_disciplinas()
-        else:
-            self.__tela_disciplina.mostrar_mensagem("ERRO: Disciplina não existe")
+        try:
+            if disciplina is not None:
+                self.__disciplina_DAO.remove(disciplina.codigo)
+                self.__tela_disciplina.mostrar_mensagem('Disciplina excluída com sucesso')
+                self.lista_disciplinas()
+            else:
+                self.__tela_disciplina.mostrar_mensagem("ERRO: Disciplina não existe")
+        except ValueError:
+            self.__tela_disciplina.mostrar_mensagem("Erro, verifique seu código.")
+            self.__tela_disciplina.close()
+            return self.__tela_disciplina.tela_opcoes()
 
     def alterar_disciplina(self):
-        self.lista_disciplinas()
-        codigo_disciplina = self.__tela_disciplina.seleciona_disciplina()
-        disciplina = self.pega_disciplina_por_codigo(codigo_disciplina)
 
-        if disciplina is not None:
-            novos_dados_disciplina = self.__tela_disciplina.pega_dados_disciplina()
-            disciplina.nome = novos_dados_disciplina["nome"]
-            disciplina.codigo = novos_dados_disciplina["codigo"]
-            disciplina.limite = novos_dados_disciplina["limite"]
-            self.__disciplina_DAO.update(disciplina)
-            self.__tela_disciplina.mostrar_mensagem('Disciplina alterada com sucesso')
+        try:
             self.lista_disciplinas()
-        else:
-            self.__tela_disciplina.mostrar_mensagem("Erro: Tente novamente")
+            codigo_disciplina = self.__tela_disciplina.seleciona_disciplina()
+            disciplina = self.pega_disciplina_por_codigo(codigo_disciplina)
+
+            if disciplina is not None:
+                novos_dados_disciplina = self.__tela_disciplina.pega_dados_disciplina()
+                disciplina.nome = novos_dados_disciplina["nome"]
+                disciplina.codigo = novos_dados_disciplina["codigo"]
+                disciplina.limite = novos_dados_disciplina["limite"]
+                self.__disciplina_DAO.update(disciplina)
+                self.__tela_disciplina.mostrar_mensagem('Disciplina alterada com sucesso')
+                self.lista_disciplinas()
+            else:
+                self.__tela_disciplina.mostrar_mensagem("Erro: Tente novamente")
+
+        except TypeError:
+            self.__tela_disciplina.mostrar_mensagem("Verifique sua entrada")
+            self.__tela_disciplina.close()
+            return self.__tela_disciplina.tela_opcoes()
 
 
 

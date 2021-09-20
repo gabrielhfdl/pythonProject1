@@ -1,5 +1,6 @@
 from limites.tela_abstrata import TelaAbstrata
 import PySimpleGUI as sg
+from excecoes.nao_eh_string import NaoEhString
 
 
 class TelaAlunos(TelaAbstrata):
@@ -59,6 +60,8 @@ class TelaAlunos(TelaAbstrata):
         try:
             button, values = self.open()
             nome = values['nome']
+            if len(nome) == 0:
+                raise NaoEhString
             matricula = int(values['matricula'])
             idade = int(values['idade'])
 
@@ -69,6 +72,12 @@ class TelaAlunos(TelaAbstrata):
             self.mostrar_mensagem('ERRO: Escolha valor inteiro para código e idade entre 1 e 150)')
             self.close()
             return self.pega_dados_aluno()
+
+        except NaoEhString:
+            self.mostrar_mensagem('ERRO: Revise o nome do aluno!')
+            self.close()
+            return self.pega_dados_aluno()
+
 
         else:
             self.close()
@@ -84,10 +93,15 @@ class TelaAlunos(TelaAbstrata):
         ]
 
         self.__window = sg.Window('Selecionar aluno').Layout(layout)
-        button, values = self.open()
-        matricula = int(values['matricula'])
-        self.close()
-        return matricula
+        try:
+            button, values = self.open()
+            matricula = int(values['matricula'])
+            self.close()
+            return matricula
+        except ValueError:
+            self.mostrar_mensagem('ERRO: Confira sua entrada!')
+            self.close()
+            return self.tela_opcoes()
 
     def mostrar_aluno(self, dados_aluno):
         string_todos_amigos = ""

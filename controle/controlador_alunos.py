@@ -43,19 +43,26 @@ class ControladorAlunos:
             self.__tela_alunos.mostrar_mensagem('ERRO: aluno não existe!')
 
     def alterar_aluno(self):
-        self.listar_alunos()
-        matricula_aluno = self.__tela_alunos.selecionar_aluno()
-        aluno = self.buscar_aluno_por_matricula(matricula_aluno)
 
-        if aluno is not None:
-            novos_dados_aluno = self.__tela_alunos.pega_dados_aluno()
-            aluno.nome = novos_dados_aluno["nome"]
-            aluno.matricula = novos_dados_aluno["matricula"]
-            aluno.idade = novos_dados_aluno["idade"]
-            self.__alunos_DAO.update(aluno)
+        try:
             self.listar_alunos()
-        else:
-            self.__tela_alunos.mostrar_aluno("ERRO: Aluno não existe")
+            matricula_aluno = self.__tela_alunos.selecionar_aluno()
+            aluno = self.buscar_aluno_por_matricula(matricula_aluno)
+
+            if aluno is not None:
+                novos_dados_aluno = self.__tela_alunos.pega_dados_aluno()
+                aluno.nome = novos_dados_aluno["nome"]
+                aluno.matricula = novos_dados_aluno["matricula"]
+                aluno.idade = novos_dados_aluno["idade"]
+                self.__alunos_DAO.update(aluno)
+                self.listar_alunos()
+            else:
+                self.__tela_alunos.mostrar_aluno("ERRO: Aluno não existe")
+
+        except TypeError:
+            self.__tela_alunos.mostrar_mensagem("Verifique sua entrada")
+            self.__tela_alunos.close()
+            return self.__tela_alunos.tela_opcoes()
 
     def listar_alunos(self):
         try:

@@ -1,5 +1,6 @@
 from limites.tela_abstrata import TelaAbstrata
 import PySimpleGUI as sg
+from excecoes.nao_eh_string import NaoEhString
 
 
 class TelaDisciplina(TelaAbstrata):
@@ -53,10 +54,14 @@ class TelaDisciplina(TelaAbstrata):
 
             button, values = self.open()
             nome = values['nome']
+
+            if len(nome) == 0 or type(nome) != str:
+                raise NaoEhString
+
             codigo = int(values['codigo'])
             limite = int(values['limite'])
 
-            if limite > 40:
+            if limite > 40 or limite < 0:
                 raise ValueError
 
             self.close()
@@ -67,6 +72,10 @@ class TelaDisciplina(TelaAbstrata):
             self.close()
             return self.pega_dados_disciplina()
 
+        except NaoEhString:
+            self.mostrar_mensagem('ERRO: Verifique o nome!')
+            self.close()
+            return self.pega_dados_disciplina()
 
 
     def mostra_disciplina(self, dados_disciplina):
@@ -88,10 +97,16 @@ class TelaDisciplina(TelaAbstrata):
         ]
         self.__window = sg.Window('Selecionar disciplina').Layout(layout)
 
-        button, values = self.open()
-        codigo = int(values['codigo'])
-        self.close()
-        return codigo
+        try:
+            button, values = self.open()
+            codigo = int(values['codigo'])
+            self.close()
+            return codigo
+        except ValueError:
+            self.mostrar_mensagem('ERRO: Disciplina não existe!')
+            self.close()
+            return self.tela_opcoes()
+
 
     def mostrar_mensagem(self, msg):
         sg.popup("", msg)

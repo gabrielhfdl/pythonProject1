@@ -1,5 +1,7 @@
 from limites.tela_abstrata import TelaAbstrata
 import PySimpleGUI as sg
+from excecoes.nao_eh_string import NaoEhString
+
 
 class TelaProfessor(TelaAbstrata):
 
@@ -58,6 +60,10 @@ class TelaProfessor(TelaAbstrata):
         try:
             button, values = self.open()
             nome = (values['nome'])
+
+            if len(nome) == 0 or type(nome) != str:
+                raise NaoEhString
+
             codigo = int(values['codigo'])
             idade = int(values['idade'])
 
@@ -72,8 +78,10 @@ class TelaProfessor(TelaAbstrata):
             self.close()
             return self.pega_dados_professor()
 
-        # except KeyError:
-        #     self.mostrar_mensagem('ERRO: O nome deve conter apenas letras')
+        except NaoEhString:
+            self.mostrar_mensagem('ERRO: Verifique o nome!')
+            self.close()
+            return self.pega_dados_professor()
 
         else:
             self.close()
@@ -98,10 +106,13 @@ class TelaProfessor(TelaAbstrata):
         ]
         self.__window = sg.Window('Selecionar professor').Layout(layout)
 
-        button, values = self.open()
-        codigo = int(values['codigo'])
-        self.close()
-        return codigo
+        try:
+            button, values = self.open()
+            codigo = int(values['codigo'])
+            self.close()
+            return codigo
+        except ValueError:
+            self.mostrar_mensagem('ERRO: Professor não existe!')
 
     def mostrar_mensagem(self, mensagem):
         sg.popup("", mensagem)

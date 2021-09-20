@@ -35,26 +35,41 @@ class ControladorProfessor:
         codigo_professor = self.__tela_professor.selecionar_professor()
         professor = self.buscar_professor_por_codigo(codigo_professor)
 
-        if(professor is not None):
-            self.__professor_DAO.remove(professor.codigo)
-            self.listar_professores()
-        else:
-            self.__tela_professor.mostrar_mensagem('ERRO: Professor não existe!')
+        try:
+            if(professor is not None):
+                self.__professor_DAO.remove(professor.codigo)
+                self.listar_professores()
+            else:
+                self.__tela_professor.mostrar_mensagem('ERRO: Professor não existe!')
+                self.__tela_professor.close()
+                return self.__tela_professor.tela_opcoes()
+
+        except ValueError:
+            self.__tela_professor.mostrar_mensagem('ERRO: Entre com um número inteiro!')
+            self.__tela_professor.close()
+            return self.__tela_professor.tela_opcoes()
+
 
     def alterar_professor(self):
-        self.listar_professores()
-        codigo_professor = self.__tela_professor.selecionar_professor()
-        professor = self.buscar_professor_por_codigo(codigo_professor)
-
-        if (professor is not None):
-            novos_dados_professor = self.__tela_professor.pega_dados_professor()
-            professor.nome = novos_dados_professor["nome"]
-            professor.codigo = novos_dados_professor["codigo"]
-            professor.idade = novos_dados_professor["idade"]
-            self.__professor_DAO.update(professor)
+        try:
             self.listar_professores()
-        else:
-            self.__tela_professor.mostrar_mensagem("ERRO: Professor não existe")
+            codigo_professor = self.__tela_professor.selecionar_professor()
+            professor = self.buscar_professor_por_codigo(codigo_professor)
+
+            if (professor is not None):
+                novos_dados_professor = self.__tela_professor.pega_dados_professor()
+                professor.nome = novos_dados_professor["nome"]
+                professor.codigo = novos_dados_professor["codigo"]
+                professor.idade = novos_dados_professor["idade"]
+                self.__professor_DAO.update(professor)
+                self.listar_professores()
+            else:
+                self.__tela_professor.mostrar_mensagem("ERRO: Professor não existe")
+
+        except TypeError:
+            self.__tela_professor.mostrar_mensagem("Verifique sua entrada!")
+            self.__tela_professor.close()
+            return self.__tela_professor.tela_opcoes()
 
     def listar_professores(self):
         dados_professores = []
